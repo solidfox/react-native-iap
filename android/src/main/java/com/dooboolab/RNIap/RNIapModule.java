@@ -484,6 +484,16 @@ public class RNIapModule extends ReactContextBaseJavaModule implements Purchases
     DoobooUtils.getInstance().resolvePromisesForKey(PROMISE_BUY_ITEM, item);
   }
 
+  private void sendUnconsumedPurchases() {
+    Purchase.PurchasesResult purchasesResult = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
+    onPurchasesUpdated(purchasesResult.getBillingResult(), purchasesResult.getPurchasesList());
+  }
+
+  @ReactMethod
+  public void startListening() {
+    sendUnconsumedPurchases();
+  }
+
   private void sendEvent(ReactContext reactContext,
                          String eventName,
                          @Nullable WritableMap params) {
