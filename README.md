@@ -82,6 +82,7 @@ Breaking Changes
       See more about [acknowledgePurchase][android-acknowledge-purchase].
   - If you are using version `^3.0.* ~ ^3.1.*`, please use `acknowledgePurchase` via [google-api-nodejs-client][].
       You can use method like `androidpublisher.purchases.subscriptions.acknowledge`.
+  - `3.4.0` introduces a similar flow to consumable purchases on iOS. You should update your code according to the recommended flow and pass `false` to `andDangerouslyFinishTransactionAutomatically` when calling`requestPurchase`.
 
 Configuration of Google Play & iTunes Connect
 ---------------------------------------------
@@ -389,9 +390,7 @@ However, this method has some caveats on Android – namely, that purchase histo
 only exists for the single most recent purchase of each SKU – so your best bet
 is to track consumption in your app yourself.
 
-By default, all items that are purchased will not be consumed unless they are
-automatically consumed by the store (for example, if you create a consumable
-item for iOS).
+By default, all items that are purchased will not be consumed.
 This means that you must manage consumption yourself.
 
 Purchases can be consumed by calling `consumePurchaseAndroid()`.
